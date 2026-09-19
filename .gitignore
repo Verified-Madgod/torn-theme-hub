@@ -12,3 +12,6 @@ test/fixture.html
 # python
 __pycache__/
 *.bak
+
+# personal / unredacted screenshots - never publish
+store/private/

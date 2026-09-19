@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Marquee promo tile 1400x560</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1400px; height: 560px; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #e6ebf5;
+    background:
+      radial-gradient(700px 500px at 88% 10%, #26335a 0%, transparent 62%),
+      radial-gradient(600px 420px at 55% 110%, #2a1f3d 0%, transparent 60%),
+      #10131a;
+    display: grid; grid-template-columns: 560px 1fr; align-items: center;
+  }
+  .copy { padding-left: 84px; }
+  .copy img { width: 84px; height: 84px; border-radius: 18px; box-shadow: 0 12px 34px rgba(0,0,0,.45); }
+  h1 { font-size: 58px; line-height: 1.02; margin: 26px 0 14px; letter-spacing: -.02em; }
+  h1 span { display: block; background: linear-gradient(90deg, #6fa8ff, #c4a7e7, #7ee787);
+            -webkit-background-clip: text; background-clip: text; color: transparent; }
+  p { font-size: 22px; color: #aab4c8; margin: 0; }
+
+  /* fanned grid of theme previews */
+  .stage { position: relative; height: 560px; overflow: hidden; }
+  .grid {
+    position: absolute; left: 30px; top: -40px;
+    display: grid; grid-template-columns: repeat(4, 196px); gap: 16px;
+    transform: rotate(-8deg); transform-origin: 0 0;
+  }
+  .card { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.07), 0 14px 30px rgba(0,0,0,.45); }
+  .mini { height: 120px; display: grid; grid-template-columns: 36px 1fr; grid-template-rows: 15px 1fr; }
+  .mini .hd { grid-column: 1 / -1; }
+  .mini .sd { padding: 7px 6px; display: grid; gap: 6px; align-content: start; }
+  .mini .sd i, .mini .pn i { display: block; border-radius: 2px; }
+  .mini .sd i { height: 4px; }
+  .mini .bd { padding: 8px 9px 0; }
+  .mini .tb { height: 12px; border-radius: 3px 3px 0 0; }
+  .mini .pn { border-radius: 0 0 3px 3px; padding: 7px; display: grid; gap: 5px; }
+  .mini .pn i { height: 4px; }
+  .mini .btn { width: 34px; height: 10px; border-radius: 3px; margin-top: 2px; }
+  .foot { padding: 8px 10px; font-size: 14px; font-weight: 600; }
+</style></head>
+<body>
+  <div class="copy">
+    <img src="../../icons/icon-128.png" alt="">
+    <h1>Theme Hub<span>for Torn</span></h1>
+    <p>23 colour themes &middot; switch in one click</p>
+  </div>
+  <div class="stage"><div class="grid" id="grid"></div></div>
+<script src="../../src/themes.js"></script>
+<script>
+  // a varied mix of dark and light palettes, enough to fill the fanned grid
+  var pick = ['midnight','dracula','paper','synthwave','nord','gruvbox','slate','cyberpunk',
+              'tokyo-night','catppuccin-latte','crimson','ocean','matrix','rose-pine','solarized-light','forest',
+              'coffee','monokai','mint','plum'];
+  var grid = document.getElementById('grid');
+  pick.forEach(function (id) {
+    var t = TORN_THEMES[id], v = t.vars;
+    var c = document.createElement('div'); c.className = 'card';
+    var mini = document.createElement('div'); mini.className = 'mini'; mini.style.background = v.bg;
+    function el(cls, bg, parent) { var n = document.createElement(cls === 'i' ? 'i' : 'div'); if (cls !== 'i') n.className = cls; if (bg) n.style.background = bg; parent.appendChild(n); return n; }
+    el('hd', v.header, mini);
+    var sd = el('sd', v.sidebar, mini);
+    [v.text, v.accent, v['text-dim'], v['text-dim']].forEach(function (col) { el('i', col, sd); });
+    var bd = el('bd', null, mini);
+    el('tb', v.titlebar, bd);
+    var pn = el('pn', v.surface, bd); pn.style.boxShadow = 'inset 0 0 0 1px ' + v.border;
+    [[v.text, '85%'], [v.link, '60%'], [v['text-dim'], '72%']].forEach(function (x) { el('i', x[0], pn).style.width = x[1]; });
+    el('btn', v.accent, pn);
+    c.appendChild(mini);
+    var f = el('foot', v.surface, c); f.style.color = v.heading; f.textContent = t.name;
+    grid.appendChild(c);
+  });
+</script>
+</body></html>

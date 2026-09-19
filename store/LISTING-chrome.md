@@ -11,8 +11,8 @@ One-time $5 registration fee. Upload `dist/theme-hub-for-torn-<version>-chrome.z
 
 **Name** — Theme Hub for Torn  _(taken from the manifest)_
 
-**Summary** — taken from the manifest `description` (111 chars):
-> 23 colour themes for torn.com. Restyles only the page you're viewing - no network requests, no data collection.
+**Summary** — taken from the manifest `description` (93 chars):
+> 23 colour themes for torn.com. Pick one from the toolbar and it applies instantly, no reload.
 
 **Description** — use the Firefox description in `LISTING-firefox.md` as-is.
 
@@ -28,6 +28,8 @@ is for browser themes, not extensions.
 | Store icon 128×128 | `icons/icon-128.png` | yes |
 | Screenshot 1280×800 | `1-picker.png`, `2-gallery.png` | at least 1 |
 | Small promo tile 440×280 | `promo-440x280.png` | yes |
+| Marquee promo tile 1400×560 | `marquee-1400x560.png` | optional (used if Chrome features the extension) |
+| Extra screenshot | `3-home.png` (personal numbers blurred) | optional |
 
 Same advice as Firefox: add a real Torn screenshot or two, with your name,
 money and other players' names cropped or blurred.

@@ -16,10 +16,9 @@ Theme Hub for Torn
 ## Add-on URL (slug)
 theme-hub-for-torn
 
-## Summary  (≤ 250 chars — this is 213)
+## Summary  (≤ 250 chars — this is 129)
 23 colour themes for torn.com — Midnight, Nord, Dracula, Solarized, Paper and
-more. Switch instantly from the toolbar. Pure CSS restyling of the page you're
-viewing: no network requests, no data collection.
+more. Switch instantly from the toolbar, no reload.
 
 ## Description
 
