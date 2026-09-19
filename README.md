@@ -35,9 +35,8 @@ filter to the extension, and browse Torn. It stays empty.
 ## Install
 
 **From the stores** (one click, updates automatically):
-- Firefox: _link once the listing is live_
-- Chrome / Brave / Opera: _link once the listing is live_
-- Edge: _link once the listing is live_
+- Firefox: (Pending Approval) https://addons.mozilla.org/en-CA/firefox/addon/theme-hub-for-torn/
+- Chrome / Brave / Opera: (Pending Approval) https://chromewebstore.google.com/detail/ejkldfhmhcikbanlineflobghbdddgki/
 
 **For development**, load it straight from this folder:
 
