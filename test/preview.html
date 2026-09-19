@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Torn Theme Hub - local preview</title>
+
+<!-- A stripped-down stand-in for Torn's own stylesheet, so you can see what the
+     engine is overriding. Structure and class names mirror a real forum page. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 12px/1.5 Arial, sans-serif; background: #ccc; color: #333; }
+  a { color: #1e6cb5; text-decoration: none; }
+
+  #topHeaderBanner { background: #2d2c2c; }
+  .header-wrapper-top { display:flex; align-items:center; gap:18px; padding:10px 16px; }
+  .header-wrapper-bottom { padding:6px 16px; background:#3a3939; }
+  .header .link-text { color:#ddd; }
+  .header-bottom-text { color:#bbb; font-size:11px; }
+  .logo-link { display:inline-block; width:92px; height:20px; background:#555; border-radius:3px; }
+
+  .content { display:flex; gap:16px; padding:16px; }
+  #sidebar { width:180px; flex:none; background:#e4e4e4; border-radius:4px; overflow:hidden; }
+  #sidebar .header___IXOC8 { background:#444; padding:6px 10px; }
+  #sidebar .title___Ocj9m { color:#fff; font-size:12px; font-weight:bold; margin:0; }
+  #sidebar .area-desktop___yee1a { border-bottom:1px solid #ccc; }
+  #sidebar .areaRow___Eheay { padding:7px 10px; display:flex; gap:8px; align-items:center; }
+  #sidebar .linkName___YZMai { color:#333; }
+  #sidebar .menuInfoRow___JGWSp { padding:6px 10px; margin:0; display:flex; justify-content:space-between; }
+  #sidebar .menuName___HCBLc { color:#666; }
+  #sidebar .menuValue___an27y { color:#1e6cb5; }
+  #sidebar .progress___SCqQ7 { height:8px; background:#bbb; border-radius:4px; margin:4px 10px 10px; }
+  #sidebar .progressLine___YBwt6 { height:100%; width:62%; background:#7ba428; border-radius:4px; }
+  #sidebar .delimiter___nLMP8 { border:0; height:1px; background:#ccc; margin:6px 0; }
+
+  .content-wrapper { flex:1; min-width:0; }
+  .content-title h4 { margin:0 0 6px; font-size:15px; color:#222; }
+  .page-head-delimiter { height:1px; background:#bbb; margin:0 0 12px; }
+
+  .title-black { background:#444; color:#fff; padding:8px 12px; font-weight:bold; }
+  .top-round { border-radius:5px 5px 0 0; }
+  .bottom-round { border-radius:0 0 5px 5px; }
+  .breadcrumbs { background:#3c3c3c; color:#eee; padding:7px 12px; margin:0; list-style:none; display:flex; gap:14px; }
+  .cont-gray { background:#f2f2f2; padding:0; border:1px solid #ddd; }
+
+  .thread-list { margin:0; padding:0; list-style:none; }
+  .thread-list > li { border-bottom:1px solid #ddd; }
+  .column-wrap { display:flex; }
+  .column-wrap.new-post { background:#eef4ea; }
+  .poster-wrap { width:150px; flex:none; background:#e8e8e8; padding:10px; }
+  .poster-name { font-weight:bold; color:#222; }
+  .poster-id { color:#888; }
+  .info-wrap .info { margin:8px 0 0; padding:0; list-style:none; color:#777; font-size:11px; }
+  .post-wrap { flex:1; padding:10px 12px; min-width:0; }
+  .posted { color:#999; font-size:11px; margin-bottom:6px; }
+  .post-quote { background:#e6e6e6; border-left:3px solid #999; padding:8px 10px; margin:0 0 8px; }
+  .author-quote { margin:0 0 4px; font-size:11px; }
+  .post.unreset p { margin:0 0 6px; }
+  .delimiter-ccc { height:1px; background:#ccc; margin:10px 0 6px; }
+  .profile-sign { color:#888; font-size:11px; }
+  .post-delimiter { height:1px; background:#ddd; }
+
+  .pagination { padding:10px 0; display:flex; gap:8px; }
+  .page-number { color:#1e6cb5; }
+  .page-number.active .page-nb { font-weight:bold; }
+
+  .forums-create-new { margin-top:14px; }
+  .editorContent___fipTO { min-height:70px; background:#fff; border:1px solid #ccc; padding:8px; }
+  .toolbarWrapper___RFpdE { background:#e8e8e8; border:1px solid #ccc; border-top:0; padding:6px; display:flex; gap:8px; }
+  .torn-btn { background:#6b8f3b; color:#fff; border:1px solid #567; border-radius:4px; padding:5px 12px; cursor:pointer; }
+  input[type="text"], textarea { background:#fff; border:1px solid #ccc; padding:5px; color:#333; }
+
+  .footer { padding:16px; color:#666; }
+
+  /* the local theme switcher, not part of the extension */
+  #switcher {
+    position:fixed; right:12px; bottom:12px; z-index:99;
+    background:#1b1f28; color:#dfe4ee; border:1px solid #2b313e; border-radius:8px;
+    padding:10px; font:12px system-ui, sans-serif; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+  #switcher select { width:190px; background:#14161c; color:#dfe4ee; border:1px solid #2b313e; border-radius:5px; padding:5px; font:inherit; }
+  #switcher label { display:flex; gap:8px; align-items:center; margin-top:8px; color:#8d97ab; }
+</style>
+
+<link rel="stylesheet" href="../src/theme-engine.css">
+</head>
+<body class="d body r regular with-sidebar">
+
+<div class="backdrops-container" style="position:fixed;inset:0;background:linear-gradient(120deg,#8ab,#465);z-index:-1"></div>
+
+<div id="topHeaderBanner" class="header">
+  <div class="header-wrapper-top">
+    <a class="logo-link" href="#"></a>
+    <span class="menu-item-link"><a href="#"><span class="link-text">Wiki</span></a></span>
+    <span class="menu-item-link"><a href="#"><span class="link-text">Rules</span></a></span>
+    <span class="menu-item-link"><a href="#"><span class="link-text">Forums</span></a></span>
+    <span class="menu-item-link"><a href="#"><span class="link-text">Staff</span></a></span>
+  </div>
+  <div class="header-wrapper-bottom">
+    <div class="header-bottom-text">Announcement <b>Choose Your Prize</b> was posted</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div id="sidebar">
+    <div class="header___IXOC8"><h2 class="title___Ocj9m">Information</h2></div>
+    <p class="menuInfoRow___JGWSp"><span class="menuName___HCBLc">Name:</span><a class="menuValue___an27y" href="#">Madgod</a></p>
+    <p class="menuInfoRow___JGWSp"><span class="menuName___HCBLc">Level:</span><span class="menuValue___an27y">91</span></p>
+    <hr class="delimiter___nLMP8">
+    <div class="progress___SCqQ7"><div class="progressLine___YBwt6"></div></div>
+    <div class="header___IXOC8"><h2 class="title___Ocj9m">Areas</h2></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><span class="linkName___YZMai">Home</span></div></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><span class="linkName___YZMai">Items</span></div></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><span class="linkName___YZMai">City</span></div></div>
+    <div class="area-desktop___yee1a active___t7hkr"><div class="areaRow___Eheay"><span class="linkName___YZMai">Forums</span></div></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><span class="linkName___YZMai">Casino</span></div></div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content-title"><h4>Forums</h4><div class="page-head-delimiter"></div></div>
+
+    <div class="pagination"><a class="page-number" href="#"><span class="page-nb">1</span></a><a class="page-number active" href="#"><span class="page-nb">2</span></a></div>
+
+    <ul class="breadcrumbs breadcrumbs-dark top-round">
+      <li><span class="name">Forum Main</span></li>
+      <li><span class="name">General Discussion</span></li>
+      <li><span class="name">What's a hill you'll die on?</span></li>
+    </ul>
+
+    <div class="title-black">What's a hill you'll die on?</div>
+
+    <div class="cont-gray bottom-round">
+      <ul class="thread-list">
+        <li>
+          <div class="column-wrap">
+            <div class="poster-wrap">
+              <div><span class="poster-name">PlayerOne</span> <span class="poster-id">[1000001]</span></div>
+              <div class="info-wrap"><ul class="info">
+                <li><span class="bold">Level:</span> 12</li>
+                <li><span class="bold">Posts:</span> 5,299</li>
+                <li><span class="bold">Last Action:</span> Now</li>
+              </ul></div>
+            </div>
+            <div class="post-wrap">
+              <div class="posted">Posted on 06:19:38 - 18/09/26 (51 minutes ago)</div>
+              <blockquote class="post-quote">
+                <p class="author-quote"><strong><a href="#">PlayerTwo [1000002]</a></strong></p>
+                <div class="quote-post"><p>A hotdog is a sandwich, same as a taco.</p></div>
+              </blockquote>
+              <div class="post unreset"><p>No. A hotdog is a form of taco. Once there's a separation between the two halves of bread, it's a sandwich.</p></div>
+              <div class="delimiter-ccc"></div>
+              <div class="profile-sign">~ E</div>
+            </div>
+          </div>
+          <div class="post-delimiter"></div>
+        </li>
+        <li>
+          <div class="column-wrap new-post">
+            <div class="poster-wrap">
+              <div><span class="poster-name">PlayerThree</span> <span class="poster-id">[1000003]</span></div>
+              <div class="info-wrap"><ul class="info">
+                <li><span class="bold">Level:</span> 100</li>
+                <li><span class="bold">Karma:</span> 18,424</li>
+              </ul></div>
+            </div>
+            <div class="post-wrap">
+              <div class="posted">Posted on 07:10:39 - 18/09/26 (Now)</div>
+              <div class="post unreset"><p>Nah mate. That is a specific type of sandwich, called a "roll".</p></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="forums-create-new">
+      <div class="title-black top-round">Reply</div>
+      <div class="cont-gray bottom-round">
+        <div class="editorRoot___SPDEh">
+          <div class="editorContent___fipTO" contenteditable="true">Type a reply...</div>
+          <div class="toolbarWrapper___RFpdE">
+            <button class="torn-btn">Post</button>
+            <input type="text" placeholder="thread title">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">Server: <a href="#">www7</a></div>
+  </div>
+</div>
+
+<div id="switcher">
+  <select id="themeSelect"></select>
+  <label><input type="checkbox" id="hideBackdrop" checked> hide backdrop</label>
+  <label><input type="checkbox" id="off"> theming off</label>
+</div>
+
+<script src="../src/themes.js"></script>
+<script>
+  var root = document.documentElement;
+  var sel = document.getElementById('themeSelect');
+  var offBox = document.getElementById('off');
+  var bdBox = document.getElementById('hideBackdrop');
+  var applied = [];
+
+  TORN_THEME_ORDER.forEach(function (id) {
+    var o = document.createElement('option');
+    o.value = id;
+    o.textContent = TORN_THEMES[id].name + '  (' + TORN_THEMES[id].scheme + ')';
+    sel.appendChild(o);
+  });
+
+  function paint() {
+    applied.forEach(function (p) { root.style.removeProperty(p); });
+    applied = [];
+    if (offBox.checked) {
+      root.removeAttribute('data-thm');
+      root.removeAttribute('data-thm-scheme');
+      root.removeAttribute('data-thm-backdrop');
+      root.removeAttribute('data-thm-chat');
+      root.removeAttribute('data-thm-dim');
+      return;
+    }
+    var t = TORN_THEMES[sel.value];
+    Object.keys(t.vars).forEach(function (k) {
+      root.style.setProperty('--thm-' + k, t.vars[k], 'important');
+      applied.push('--thm-' + k);
+    });
+    root.setAttribute('data-thm', sel.value);
+    root.setAttribute('data-thm-scheme', t.scheme);
+    root.setAttribute('data-thm-backdrop', bdBox.checked ? 'hidden' : 'shown');
+    root.setAttribute('data-thm-chat', 'on');
+    root.setAttribute('data-thm-dim', 'off');
+  }
+
+  sel.addEventListener('change', paint);
+  offBox.addEventListener('change', paint);
+  bdBox.addEventListener('change', paint);
+  paint();
+</script>
+</body>
+</html>

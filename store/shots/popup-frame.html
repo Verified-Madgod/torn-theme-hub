@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>popup frame</title></head>
+<body>
+<script>
+/* Renders the REAL src/popup.html (+ its css/js) with a stand-in for the
+   extension storage API, so store screenshots show the genuine popup.
+   ?theme=<id> picks which card is selected. */
+(async function () {
+  var theme = new URLSearchParams(location.search).get('theme') || 'midnight';
+  var stub = '<script>window.browser={storage:{local:{' +
+    'get:function(){return Promise.resolve({tornThemeHub:{enabled:true,theme:' + JSON.stringify(theme) +
+    ',hideBackdrop:true,themeChat:true,dimImages:0,themeStatus:false}})},' +
+    'set:function(){return Promise.resolve()}},onChanged:{addListener:function(){}}},' +
+    'tabs:{query:function(){return Promise.resolve([])},sendMessage:function(){}},' +
+    'runtime:{onMessage:{addListener:function(){}}}};<\/script>';
+  var html = await (await fetch('../../src/popup.html', { cache: 'no-store' })).text();
+  html = html.replace('<head>', '<head><base href="../../src/">' + stub);
+  document.open(); document.write(html); document.close();
+})();
+</script>
+</body></html>

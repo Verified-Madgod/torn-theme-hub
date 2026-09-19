@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Theme Hub for Torn</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <header class="bar">
+    <div class="brand">
+      <span class="dot"></span>
+      <strong>Theme Hub for Torn</strong>
+    </div>
+    <label class="switch" title="Turn theming on or off">
+      <input type="checkbox" id="enabled">
+      <span class="track"><span class="knob"></span></span>
+    </label>
+  </header>
+
+  <div class="filters">
+    <input type="search" id="search" placeholder="Filter themes..." autocomplete="off">
+    <div class="segmented" id="schemeFilter">
+      <button data-scheme="all" class="on">All</button>
+      <button data-scheme="dark">Dark</button>
+      <button data-scheme="light">Light</button>
+    </div>
+  </div>
+
+  <main id="grid" class="grid"></main>
+
+  <section class="options">
+    <label class="opt">
+      <input type="checkbox" id="hideBackdrop">
+      <span>Hide Torn's page backdrop image</span>
+    </label>
+    <label class="opt">
+      <input type="checkbox" id="themeChat">
+      <span>Theme the chat panel</span>
+    </label>
+    <label class="opt" title="Off keeps Torn's own jail / hospital / travel colours, which signal your status">
+      <input type="checkbox" id="themeStatus">
+      <span>Also theme jail / hospital / travel screens</span>
+    </label>
+    <label class="opt range">
+      <span>Tone down images <em id="dimValue">0%</em></span>
+      <input type="range" id="dimImages" min="0" max="40" step="5">
+    </label>
+  </section>
+
+  <footer class="foot">
+    <button id="inspect" class="ghost" title="List the CSS variables in the stylesheets this page already loaded">
+      Inspect page palette
+    </button>
+    <span id="status" class="status"></span>
+  </footer>
+
+  <script src="themes.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

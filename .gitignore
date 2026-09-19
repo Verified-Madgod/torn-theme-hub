@@ -1,0 +1,14 @@
+# Torn's own stylesheets, saved locally as generator input.
+# They are Torn's copyrighted files - never publish or redistribute them.
+torn_css/
+
+# build output
+dist/
+*.xpi
+
+# generated test page (rebuild with tools/build_fixture.py)
+test/fixture.html
+
+# python
+__pycache__/
+*.bak

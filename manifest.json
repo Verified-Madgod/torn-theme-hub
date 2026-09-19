@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Theme Hub for Torn",
+  "version": "1.4.7",
+  "description": "23 colour themes for torn.com. Restyles only the page you're viewing - no network requests, no data collection.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.torn.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.torn.com/*"
+      ],
+      "js": [
+        "src/themes.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/torn-vars.css",
+        "src/torn-rules.css",
+        "src/theme-engine.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": false,
+      "exclude_matches": [
+        "*://wiki.torn.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Theme Hub for Torn",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "torn-theme-hub@madgod",
+      "strict_min_version": "121.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}

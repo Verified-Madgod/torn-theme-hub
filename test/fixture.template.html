@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Theme Hub for Torn - real-CSS fixture</title>
+<!-- Torn's own stylesheets, from torn_css/, in saved order. Loaded from disk:
+     nothing here talks to torn.com. Relative url() images simply 404. -->
+{{TORN_LINKS}}
+
+<style>
+  /* LAYOUT-ONLY scaffolding (no colours): stands in for forums/*.css and the
+     React /builds/*.css, which are not in torn_css/ yet. */
+  .forums-thread .column-wrap { display: flex; }
+  .forums-thread .poster-wrap { width: 180px; flex: none; padding: 10px; float: none; }
+  .forums-thread .post-wrap { flex: 1; padding: 10px 12px; float: none; min-width: 0; }
+  .forums-thread .action-wrap, .forums-thread .right-part ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; justify-content: flex-end; }
+  .forums-thread .info-wrap .info { list-style: none; padding: 0; margin: 6px 0 0; }
+  .breadcrumbs { list-style: none; margin: 0; padding: 7px 12px; display: flex; gap: 16px; }
+  .forums-thread .title-black, .forums-create-new .title-black { padding: 7px 12px; }
+  .header-wrapper-top .container, .header-wrapper-bottom .container { padding: 8px 16px; }
+  .header-menu .menu-items { list-style: none; margin: 0; padding: 0; display: flex; gap: 16px; }
+  #sidebar p, #sidebar .areaRow___Eheay, #sidebar .header___IXOC8 { padding: 5px 10px; margin: 0; }
+  #mainContainer { padding: 12px; }
+  .pagination { display: flex; gap: 8px; padding: 6px 0; }
+  /* stand-ins for semantic colours set by CSS not in torn_css/ - used to prove
+     the theme never overrides them */
+  #sidebar .money-positive___kGVzO { color: #5c940d; }
+  .t-red { color: #d83500; }
+  /* stand-in for Torn's hardcoded DARK chat colours (chat CSS is not in
+     torn_css/): light text on dark bubbles - the combination that becomes
+     unreadable once a light theme repaints the chat panel */
+  #chatRoot .list___Fx1 { background: #222; }
+  #chatRoot .message___Fx1 { background: #333; color: #ddd; padding: 4px 6px; margin: 3px 0; border-radius: 6px; }
+  #chatRoot .message___Fx1.self___Fx1 { background: #444; }
+  #chatRoot .sender___Fx1 { color: #74c0fc; font-weight: bold; }
+  #chatRoot .time___Fx1 { color: #999; font-size: 10px; }
+  #chatRoot .text___Fx1 { color: #eee; }
+  #chatRoot .root___dCIzf { display: flex; align-items: center; gap: 4px; padding: 6px 8px; padding-left: 10px; background: #2a2a2a; border-radius: 4px; }
+  #chatRoot .textarea___I_GcJ { flex: 1; min-width: 0; background: transparent; border: none; color: #ddd; resize: none; }
+  /* stand-in for TornTools' sidebar notice styling */
+  .tt-sidebar-area a span { color: #333; }
+</style>
+
+<!-- the extension, in manifest order -->
+<link rel="stylesheet" href="../src/torn-vars.css">
+<link rel="stylesheet" href="../src/torn-rules.css">
+<link rel="stylesheet" href="../src/theme-engine.css">
+
+<style>
+  #fx-switcher {
+    position: fixed; right: 12px; bottom: 12px; z-index: 99999;
+    background: #1b1f28; color: #dfe4ee; border: 1px solid #2b313e; border-radius: 8px;
+    padding: 10px; font: 12px system-ui, sans-serif; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  }
+  #fx-switcher select { width: 200px; background: #14161c; color: #dfe4ee; border: 1px solid #2b313e;
+    border-radius: 5px; padding: 5px; font: inherit; }
+  #fx-switcher label { display: flex; gap: 8px; align-items: center; margin-top: 7px; color: #8d97ab; }
+</style>
+</head>
+<body data-page="forums" id="body" class="d body r regular with-sidebar" data-layout="regular"
+      data-country="torn" data-celebration="none" data-traveling="false" data-abroad="false">
+
+<div class="backdrops-container" style="top: 74px;"><div class="custom-bg-desktop"></div></div>
+
+<div id="header-root"><div id="topHeaderBanner" class="header responsive-sidebar-header">
+  <div class="header-wrapper-top" id="header-wrapper-top"><div class="container clearfix">
+    <div id="tcLogo" class="logo"><a class="logo-link" href="#"></a></div>
+    <div class="header-menu left"><ul class="menu-items clearfix">
+      <li class="menu-item-link"><a class="menu-item-href" href="#"><span class="link-text">Wiki</span></a></li>
+      <li class="menu-item-link"><a class="menu-item-href" href="#"><span class="link-text">Rules</span></a></li>
+      <li class="menu-item-link"><a class="menu-item-href" href="#"><span class="link-text">Forums</span></a></li>
+      <li class="menu-item-link"><a class="menu-item-href" href="#"><span class="link-text">Staff</span></a></li>
+    </ul></div>
+  </div></div>
+  <div class="header-wrapper-bottom"><div class="container">
+    <div class="header-bottom-text news-ticker-new headline-url">
+      <a href="#" class="headline ok"><span class="headline-content">Announcement <b>Choose Your Prize</b> was posted</span></a>
+    </div>
+  </div></div>
+</div></div>
+
+<div class="content responsive-sidebar-container logged-in">
+<div class="container" id="mainContainer">
+
+  <div id="sidebarroot"><div class="sidebar___c4dEc desktop___F2V9S" id="sidebar" style="float:left;width:172px">
+    <div class="header___IXOC8"><h2 class="title___Ocj9m">Information</h2></div>
+    <!-- user information block: markup as reported from the live sidebar -->
+    <div class="userInformation___Tkqft"><div><ul class="statusIcons___ks48M big___O1UVc">
+      <li class="icon6___R1xkN"><a href="#" aria-label="Male"></a></li>
+      <li class="icon4___y6P08"><a href="#" aria-label="Subscriber"></a></li>
+    </ul><hr class="delimiter___nLMP8"></div>
+    <p class="menuInfoRow___JGWSp"><span class="menuName___HCBLc">Name:</span><a href="#" class="menuValue___an27y">Madgod</a></p>
+    <div class="points___Oucuv">
+      <p class="point-block___uhsNR"><span class="name___maone">Money:</span><span class="value___ToWFu money-positive___kGVzO">$1,234,567</span></p>
+      <p class="point-block___uhsNR"><span class="name___maone">Level:</span><span class="value___ToWFu ">91</span></p>
+      <p class="point-block___uhsNR"><span class="name___maone">Points:</span><span class="value___ToWFu ">1,153</span><a href="#" class="use___Kpac0">[use]</a></p>
+    </div>
+    <hr class="delimiter___nLMP8">
+    <div class="">
+      <div class="bar___TZBBu energy___u4u2X barDesktop___nERqP bar-link"><div class="barStats___xqQ4o"><p class="barName___C6nG_">Energy:</p><p class="barValue___J9avM">200/150</p><p class="barDescr___PKVGN">OVER</p></div><div class="progress___SCqQ7 full___NNGJO"><div class="progressLineTimer___djVae" style="width: 100%;"></div><div class="progressLine___YBwt6" style="width: 100%;background:#6f9e00"></div></div><div><ul class="tickList___IZ1Wg"><li style="width: 25%;"></li><li style="width: 25%;"></li><li style="width: 25%;"></li></ul></div></div>
+      <div class="bar___TZBBu happy___oAiqy barDesktop___nERqP"><div class="barStats___xqQ4o"><p class="barName___C6nG_">Happy:</p><p class="barValue___J9avM">4093/5025</p><p class="barDescr___PKVGN">13:50</p></div><div class="progress___SCqQ7"><div class="progressLineTimer___djVae" style="width: 7%;"></div><div class="progressLine___YBwt6" style="width: 81%;background:#e8b400"></div></div><div><ul class="tickList___IZ1Wg"><li style="width: 25%;"></li><li style="width: 25%;"></li><li style="width: 25%;"></li></ul></div></div>
+      <a href="#" class="chainBar___t4bd0 barDesktop___l9USo"><div class="barStats___BI6Rq"><p class="barName___Dgl41">Chain:</p><p class="barValue___KkM6k">0/10</p><p class="barTimeLeft___VpBl9">00:00</p></div><div class="progress____UAFS"><div class="progressLineWrap___TzRER"><div class="progressLine___Hwmus" style="width: 0%;"></div></div></div></a>
+    </div>
+    </div>
+    <div class="header___IXOC8"><h2 class="title___Ocj9m">Areas</h2></div>
+    <!-- TornTools update notice (markup as reported) -->
+    <div id="ttUpdateNotice" class="tt-sidebar-area"><div><a href="#" target="_blank"><span>TornTools updated: 9.3.0</span></a></div></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><a href="#" class="link___tg6eQ"><span class="linkName___YZMai">Home</span></a></div></div>
+    <div class="area-desktop___yee1a"><div class="areaRow___Eheay"><a href="#" class="link___tg6eQ"><span class="linkName___YZMai">Items</span></a></div></div>
+    <div class="area-desktop___yee1a active___t7hkr"><div class="areaRow___Eheay"><a href="#" class="link___tg6eQ"><span class="linkName___YZMai">Forums</span></a></div></div>
+  </div></div>
+
+  <div class="content-wrapper summer m-left20" role="main" style="margin-left:192px">
+  <div id="forums-page-wrap">
+
+    <div class="content-title m-bottom10">
+      <h4 id="skip-to-content" class="left">Forums</h4>
+      <div class="links-top-wrap"><div id="top-page-links-list" class="content-title-links">
+        <a class="back-main t-clear h c-pointer line-h24 right" href="#"><span>Back to Forum</span></a>
+      </div></div>
+      <div class="clear"></div>
+      <hr class="page-head-delimiter">
+    </div>
+
+    <div class="info-msg-cont border-round m-top10"><div class="info-msg border-round">
+      <i class="info-icon"></i>
+      <div class="delimiter"><div class="msg right-round">This is an info message panel, the kind Torn shows after most actions.</div></div>
+    </div></div>
+
+    <div class="forums-thread-wrap view-wrap m-top10">
+      <ul class="breadcrumbs breadcrumbs-dark title-black top-round m-top10">
+        <li class="c-pointer"><span class="arrow-l"></span><span class="name">Forum Main</span><span class="arrow-r"></span></li>
+        <li class="c-pointer"><span class="arrow-l"></span><span class="name">General Discussion</span><span class="arrow-r"></span></li>
+        <li class="active"><span class="arrow-l"></span><span class="name t-overflow">What's a hill you'll die on?</span><span class="arrow-r"></span></li>
+        <li class="clear"></li>
+      </ul>
+      <div class="forums-thread">
+        <div class="title title-black" id="topic-title"><p class="forums-thread-title t-overflow">What's a hill you'll die on?</p></div>
+        <ul class="thread-list cont-gray bottom-round">
+          <li data-id="1"><div class="column-wrap">
+            <div class="poster-wrap left">
+              <div class="poster white-grad"><a class="user name" href="#">PlayerOne [1000001]</a></div>
+              <div class="info-wrap"><ul class="info">
+                <li class="name-id"><span><span class="poster-name bold">PlayerOne</span> <span class="poster-id bold">[1000001]</span></span></li>
+                <li class="level"><span class="bold">Level:</span> 12</li>
+                <li class="posts"><span class="bold">Posts:</span> 5,299</li>
+                <li class="last-act"><span class="bold">Last Action:</span> Now</li>
+                <li class="clear"></li>
+              </ul></div>
+            </div>
+            <div class="post-wrap left">
+              <!-- action bar: markup as reported (own post: has Edit, votes disabled) -->
+              <div class="confirm-wrap"><ul class="action-wrap my-post">
+                <li class="quote forum-button" title="Quote" data-event="quote"><button class="thread-action-icon wai-btn" aria-label="Quote"></button></li>
+                <li class="report   forum-button" data-event="report" title="Report"><button class="thread-action-icon wai-btn" aria-label="Report"></button></li>
+                <li class="edit forum-button" data-event="edit" title="Edit"><button class="thread-action-icon wai-btn" aria-label="Edit"></button></li>
+                <li class="right-part"><ul>
+                  <li class="like forum-button disabled" data-event="like"><span class="value ">112</span><button class="like-icon like-item wai-btn " disabled="" aria-label="Likes: 112."></button></li>
+                  <li class="dislike forum-button disabled" data-event="dislike"><span class="value ">1</span><button class="dislike-icon like-item wai-btn " disabled="" aria-label="Dislikes: 1."></button></li>
+                </ul></li>
+                <li class="clear"></li>
+              </ul></div>
+              <div class="post-container editor-content bbcode-content">
+                <div class="time-wrap"><div class="posted">Posted on 06:19:38 - 18/09/26 (51 minutes ago)</div></div>
+                <div class="quote unreset"><blockquote class="post-quote">
+                  <p class="author-quote"><strong><a class="t-blue h" href="#">PlayerTwo [1000002]</a></strong></p>
+                  <div class="quote-post showContent"><div class="quote-post-content"><p>A hotdog is a sandwich, same as a taco.</p></div></div>
+                </blockquote></div>
+                <div class="post unreset"><p>No. A hotdog is a form of taco. Once there's a separation between the two halves of bread, it's a sandwich.</p></div>
+                <div class="delimiter-ccc"></div>
+                <div class="profile-sign editor-content unreset"><p>~ E</p></div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div><div class="post-delimiter"></div></li>
+
+          <li class="last" data-id="2"><div class="column-wrap new-post viewed-post">
+            <div class="poster-wrap left">
+              <div class="poster white-grad"><a class="user name" href="#">PlayerThree [1000003]</a></div>
+              <div class="info-wrap"><ul class="info">
+                <li class="name-id"><span><span class="poster-name bold">PlayerThree</span> <span class="poster-id bold">[1000003]</span></span></li>
+                <li class="level"><span class="bold">Level:</span> 100</li>
+                <li class="karma"><span class="bold">Karma:</span> 18,424</li>
+                <li class="clear"></li>
+              </ul></div>
+            </div>
+            <div class="post-wrap left">
+              <div class="post-container editor-content bbcode-content">
+                <div class="time-wrap"><div class="posted">Posted on 07:10:39 - 18/09/26 (Now)</div></div>
+                <div class="post unreset"><p>Nah mate. That is a specific type of sandwich, called a "roll".</p></div>
+                <div class="edited">Last edited by PlayerThree <span class="date">on 07:11:02 - 18/09/26</span></div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div></li>
+        </ul>
+      </div>
+
+      <!-- pagination: markup as reported -->
+      <div class="gallery-wrapper pagination m-top10 "> <div class="pagination-l"></div><a class="disable page-show"><i class="pagination-left"></i></a>
+        <a page="1" class="page-number active page-visited page-show" style="cursor: pointer;" href="#"><span class="left-end"></span><span class="page-nb">1</span><span class="right-end"></span></a><a page="2" class="page-number page-visited page-show" href="#"><span class="left-end"></span><span class="page-nb">2</span><span class="right-end"></span></a><a page="3" class="page-number page-visited page-show" href="#"><span class="left-end"></span><span class="page-nb">3</span><span class="right-end"></span></a><a page="4" class="page-number page-show" href="#"><span class="left-end"></span><span class="page-nb">4</span><span class="right-end"></span></a><span class="points t-gray-3 page-show" style="display:none">...</span>
+        <a href="#" class="page-show"><i class="pagination-right"></i></a><div class="pagination-r"></div></div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="forums-new-post-wrap m-top10"><div class="forums-create-new">
+      <div class="title-black top-round">Reply</div>
+      <div class="cont-gray bottom-round" style="padding:10px">
+        <div class="title-wrap"><div class="label">Thread Title:</div>
+          <div class="input-wrap"><input type="text" value="" placeholder="title"></div></div>
+        <p style="margin-top:10px"><button class="torn-btn">Post</button>
+           <button class="torn-btn btn-dark-bg">Dark button</button></p>
+      </div>
+    </div></div>
+
+  </div>
+  <div class="clear"></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ faction armoury rows (markup as reported) ============ -->
+<div class="content-wrapper" style="margin-left:192px" id="fx-armoury-head">
+<ul aria-label="Faction armoury tabs" class="torn-tabs tabs-dark armory-main-tab ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist" style="list-style:none;margin:0;padding:0;display:flex">
+  <li class="weapons ui-state-default ui-corner-top" role="tab" aria-selected="false"><a href="#" class="ui-tabs-anchor">Weapons</a></li>
+  <li class="armor ui-state-default ui-corner-top" role="tab" aria-selected="false"><a href="#" class="ui-tabs-anchor">Armor</a></li>
+  <li class="drugs ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" aria-selected="true"><a href="#" class="ui-tabs-anchor">Drugs</a></li>
+  <li class="ui-state-default ui-corner-top" role="tab" aria-selected="false"><a href="#" class="ui-tabs-anchor">Loot</a></li>
+  <li class="ui-state-default ui-corner-top" role="tab" aria-selected="false"><a href="#" class="ui-tabs-anchor">Deposit</a></li>
+</ul>
+<ul class="list-title white-grad" style="list-style:none;margin:0;padding:0;display:flex;gap:30px">
+  <li class="item-title">Item</li>
+  <li class="type">Type</li>
+  <li class="loaned">Loaned</li>
+  <li class="item-action">Action</li>
+  <li class="clear"></li>
+</ul>
+</div>
+<div class="content-wrapper" style="margin-left:192px" id="fx-armoury">
+<ul class="item-list">
+  <li class="last item-use-act">
+    <div class="img-wrap" data-itemid="206"><img class="torn-item medium" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div>
+    <div class="name bold t-overflow">Xanax x<span class="qty">407</span></div>
+    <div class="options-wrap t-show torn-divider divider-vertical"><div class="options icon-h"><i class="show-option-icon"></i></div><div class="clear"></div></div>
+    <div class="type">Drug</div>
+    <div class="loaned t-overflow"><span class="t-show bold">Loaned:</span> Available</div>
+    <div class="item-action">
+      <a href="#" aria-label="Xanax. Action: Use" class="use active" data-role="use">Use</a>
+      <div class="give" data-role="give">Give</div>
+      <div class="loan" data-role="loan">Loan</div>
+      <div class="retrieve" data-role="retrieve">Retrieve</div>
+      <div class="clear"></div>
+    </div>
+    <div class="use-cont action-cont" data-itemid="206">
+      <div class="use-wrap msg" style="display: block;"><form data-action="" method="post">
+        <p>You pop the <b>Xanax</b> pill into your mouth and down a glass of water. You gain <span class="bold">250 energy</span> and <span class="bold">75 happiness</span>.<br> You now have 700/150 energy, 4598/5025 happiness, and a drug cooldown of <span class="counter-wrap hasCountdown">06:00:25</span>.</p>
+        <p><a href="#" class="close-act t-blue h">Close</a> <a class=" t-blue h m-left10" href="#">Gym</a> <a class=" t-blue h m-left10" href="#">Faction</a></p>
+        <div class="clear"></div>
+      </form></div>
+    </div>
+    <div class="view-item-info"><div class="item-cont"><div class="item-wrap"><span class="info-msg"><span class="ajax-preloader"></span></span></div></div></div>
+    <div class="clear"></div>
+  </li>
+  <!-- a non-usable row: no .item-use-act class, matched structurally via :has() -->
+  <li>
+    <div class="img-wrap"><img class="torn-item medium" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div>
+    <div class="name bold t-overflow">Kevlar Vest x<span class="qty">3</span></div>
+    <div class="type">Armor</div>
+    <div class="loaned t-overflow"><span class="t-show bold">Loaned:</span> Madgod</div>
+    <div class="item-action">
+      <div class="give" data-role="give">Give</div>
+      <div class="loan active" data-role="loan">Loan</div>
+      <div class="retrieve" data-role="retrieve">Retrieve</div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </li>
+</ul>
+</div>
+
+<!-- ============ forum index row (li.name markup as reported; siblings approximated) ============ -->
+<div class="content-wrapper" style="margin-left:192px" id="fx-forum-index">
+ <div class="cont-gray bottom-round">
+  <ul class="row" style="list-style:none;margin:0;padding:6px;display:flex;gap:20px">
+    <li class="name t-overflow">
+      <a href="#" class="forum-link">
+        <span class="icon-wrap"><i class="fm-my-faction-icon"></i></span>
+        <span class="desc t-overflow">My Faction</span>
+      </a>
+    </li>
+    <li class="threads">12 threads</li>
+    <li class="posts">340 posts</li>
+  </ul>
+ </div>
+</div>
+
+<!-- ============ forum notifications (li.new markup as reported + a read sibling) ============ -->
+<div class="content-wrapper" style="margin-left:192px" id="fx-notifs">
+ <ul style="list-style:none;margin:0;padding:0">
+  <li class="new">
+    <div class="icons-wrap"><i class="like-icon"></i></div>
+    <div class="post-wrap">
+        <div class="bold t-overflow"><a href="#">PlayerFour liked your post</a></div>
+        <div class="qty t-overflow"> Why was torn created?</div>
+    </div>
+  </li>
+  <li>
+    <div class="icons-wrap"><i class="like-icon"></i></div>
+    <div class="post-wrap">
+        <div class="bold t-overflow"><a href="#">PlayerThree liked your post</a></div>
+        <div class="qty t-overflow"> Hotdogs are tacos</div>
+    </div>
+  </li>
+ </ul>
+</div>
+
+<!-- ============ chat window (markup as reported; icon paths shortened) ============ -->
+<div id="chatRoot" style="margin: 12px 0 0 192px; width: 300px">
+ <div class="root___cqpqn"><div class="root___Ef1Ql"><div class="root___TsBOW" id="fx-chat">
+  <div class="root___h6O2X" data-prevent-flyout-swipe="true">
+   <button type="button" class="root___oMZdA root___wVuUd header___FgvBi" style="cursor: grab;">
+    <div class="actionButton___TPvz0 enabled___ChdzG" role="button" tabindex="0">
+     <svg viewBox="3 3 18 18" width="24" height="24" class="root___hg1fe icon___GCfbo"><defs><linearGradient id="fx_g22" x1="0.5" x2="0.5" y2="1"><stop offset="0"></stop><stop offset="1"></stop></linearGradient></defs><g fill="url(#fx_g22)"><circle cx="12" cy="12" r="8"></circle></g></svg>
+     <span style="color: white;" class="root___xjLJ2 headingH1___LBfrR overflow___wPsJl title___PyT3q">Global</span>
+     <svg viewBox="0 0 126 84" width="12" height="8" class="root___hg1fe icon___GCfbo arrowIcon___cTVCQ"><g fill="url(#fx_g22)"><rect width="126" height="84"></rect></g></svg>
+    </div>
+    <svg viewBox="0 0 24 24" width="24" height="24" class="root___hg1fe icon___GCfbo minimizeIcon___nA2D5" aria-label="Minimize"><g fill="url(#fx_g22)"><rect x="0" y="21" width="24" height="3"></rect></g></svg>
+   </button>
+   <div class="tt-chat-filter"><label>Search:<input autocomplete="false"></label></div>
+   <div class="list___Fx1" style="padding:4px">
+     <div class="message___Fx1"><a href="#" class="sender___Fx1">PlayerThree</a> <span class="time___Fx1">07:10</span><div class="text___Fx1">anyone up for a chain?</div></div>
+     <div class="message___Fx1 self___Fx1"><a href="#" class="sender___Fx1">Madgod</a> <span class="time___Fx1">07:11</span><div class="text___Fx1">in 5, grabbing xanax</div></div>
+     <div class="message___Fx1"><span class="sender___Fx1">System</span> <span class="time___Fx1">07:12</span><p class="text___Fx1">Plain paragraph text</p></div>
+   </div>
+   <div class="root___dCIzf"><textarea class="textarea___I_GcJ tt-chat-autocomplete _resizable-chat_1idlo_1" placeholder="Type your message here..."></textarea><button type="button" class="iconWrapper___SHmCW" disabled=""><svg viewBox="0 0 18 18" width="24" height="24" class="root___hg1fe icon___mJeiJ"><g fill="url(#fx_g22)"><path d="M18,0l-4.5,16.5-6.1-5.43,5.86-6.17-7.84,5.42-5.41-1.32L18,0ZM6.75,12.5v5.5l2.44-3.32-2.44-2.18Z"></path></g></svg></button></div>
+  </div>
+ </div></div></div>
+</div>
+
+<div class="footer"><br><br></div>
+
+<div id="fx-switcher">
+  <select id="fx-theme"></select>
+  <label><input type="checkbox" id="fx-dark"> Torn dark mode on</label>
+  <label><input type="checkbox" id="fx-off"> theming off</label>
+</div>
+
+<!-- Stand-in for the extension storage API, so the REAL src/content.js runs
+     here exactly as it ships (its <style> injection and self-healing included). -->
+<script>
+  window.__thmListeners = [];
+  window.__thmState = null;
+  window.browser = {
+    storage: {
+      local: { get: function () { return Promise.resolve({ tornThemeHub: window.__thmState }); } },
+      onChanged: { addListener: function (f) { window.__thmListeners.push(f); } }
+    },
+    runtime: { onMessage: { addListener: function () {} } }
+  };
+</script>
+<script src="../src/themes.js"></script>
+<script src="../src/content.js"></script>
+<script src="audit.js"></script>
+<script>
+  (function () {
+    var body = document.body;
+    var sel = document.getElementById('fx-theme');
+    var off = document.getElementById('fx-off');
+    var dm = document.getElementById('fx-dark');
+    TORN_THEME_ORDER.forEach(function (id) {
+      var o = document.createElement('option');
+      o.value = id; o.textContent = TORN_THEMES[id].name + '  (' + TORN_THEMES[id].scheme + ')';
+      sel.appendChild(o);
+    });
+    var q = new URLSearchParams(location.search);
+    if (q.get('theme')) sel.value = q.get('theme');
+    if (q.get('dark') === '1') dm.checked = true;
+    if (q.get('off') === '1') off.checked = true;
+
+    // settings change -> fire the same storage.onChanged event the popup causes
+    function paint() {
+      body.classList.toggle('dark-mode', dm.checked);
+      window.__thmState = { enabled: !off.checked, theme: sel.value, hideBackdrop: true,
+                            themeChat: true, dimImages: 0, themeStatus: false };
+      window.__thmListeners.forEach(function (f) {
+        f({ tornThemeHub: { newValue: window.__thmState } }, 'local');
+      });
+    }
+    [sel, off, dm].forEach(function (e) { e.addEventListener('change', paint); });
+    paint();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Promo tile 440x280</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #e6ebf5;
+    background: radial-gradient(420px 260px at 90% 0%, #26335a 0%, transparent 65%), #10131a;
+    padding: 30px 32px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .top { display: flex; align-items: center; gap: 16px; }
+  .top img { width: 64px; height: 64px; border-radius: 14px; }
+  h1 { font-size: 30px; line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+  h1 small { display: block; font-size: 15px; font-weight: 500; color: #8d97ab; margin-top: 6px; letter-spacing: 0; }
+  .strip { display: grid; grid-template-columns: repeat(23, 1fr); height: 34px; border-radius: 8px; overflow: hidden; }
+  .strip i { display: block; }
+  .line { font-size: 14px; color: #aab4c8; }
+</style></head>
+<body>
+  <div class="top"><img src="../../icons/icon-128.png" alt="">
+    <h1>Theme Hub for Torn<small>23 colour themes &middot; one click</small></h1></div>
+  <div class="line">No network requests &middot; no data collected</div>
+  <div class="strip" id="strip"></div>
+<script src="../../src/themes.js"></script>
+<script>
+  var s = document.getElementById('strip');
+  TORN_THEME_ORDER.forEach(function (id) {
+    var v = TORN_THEMES[id].vars, i = document.createElement('i');
+    i.style.background = 'linear-gradient(180deg,' + v.accent + ' 0 34%,' + v.surface + ' 34% 67%,' + v.bg + ' 67%)';
+    s.appendChild(i);
+  });
+</script>
+</body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Store shot 1 - picker</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background:
+      radial-gradient(900px 600px at 85% 20%, #26335a 0%, transparent 60%),
+      radial-gradient(700px 500px at 10% 90%, #2a1f3d 0%, transparent 60%),
+      #10131a;
+    color: #e6ebf5;
+    display: grid; grid-template-columns: 1fr 560px; align-items: center;
+  }
+  .copy { padding: 0 40px 0 96px; }
+  .icon { width: 72px; height: 72px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  h1 { font-size: 54px; line-height: 1.05; margin: 28px 0 18px; letter-spacing: -.02em; }
+  h1 span { background: linear-gradient(90deg, #6fa8ff, #c4a7e7, #7ee787); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  p.lead { font-size: 21px; line-height: 1.5; color: #aab4c8; margin: 0 0 30px; max-width: 520px; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  li { font-size: 18px; color: #c6cede; display: flex; gap: 12px; align-items: center; }
+  li b { color: #e6ebf5; font-weight: 600; }
+  li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #5b8cff; flex: none; }
+  .stage { display: flex; justify-content: center; }
+  .frame {
+    width: 384px; height: 618px; border: 0; border-radius: 12px;
+    transform: scale(1.08); transform-origin: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px #2b313e;
+    background: #14161c;
+  }
+</style></head>
+<body>
+  <div class="copy">
+    <img class="icon" src="../../icons/icon-128.png" alt="">
+    <h1>Give Torn<br><span>a new look</span></h1>
+    <p class="lead">23 hand-tuned colour themes, switched instantly from your toolbar. No reload.</p>
+    <ul>
+      <li><span><b>18 dark, 5 light</b> palettes</span></li>
+      <li><span>Every theme contrast-checked for readability</span></li>
+      <li><span>Money, bars &amp; status colours left untouched</span></li>
+      <li><span><b>No network requests</b>, no data collected</span></li>
+    </ul>
+  </div>
+  <div class="stage"><iframe class="frame" src="popup-frame.html?theme=midnight"></iframe></div>
+</body></html>

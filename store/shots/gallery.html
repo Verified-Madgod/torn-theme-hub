@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Store shot 2 - gallery</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #0d0f14; color: #e6ebf5; padding: 34px 44px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
+  h1 { font-size: 30px; margin: 0; letter-spacing: -.01em; }
+  header p { margin: 0; color: #8d97ab; font-size: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .card { border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 1px #262c38, 0 8px 20px rgba(0,0,0,.35); background: #171a21; }
+  /* a miniature Torn page: header strip, sidebar, title bar, panel with text + button */
+  .mini { height: 118px; display: grid; grid-template-columns: 34px 1fr; grid-template-rows: 14px 1fr; }
+  .mini .hd { grid-column: 1 / -1; display: flex; align-items: center; gap: 5px; padding: 0 7px; }
+  .mini .hd i { display: block; width: 14px; height: 3px; border-radius: 2px; opacity: .8; }
+  .mini .sd { padding: 6px 5px; display: grid; gap: 5px; align-content: start; }
+  .mini .sd i { display: block; height: 4px; border-radius: 2px; }
+  .mini .bd { padding: 7px 8px 0; }
+  .mini .tb { height: 11px; border-radius: 3px 3px 0 0; display: flex; align-items: center; padding: 0 5px; }
+  .mini .tb i { display: block; width: 38%; height: 3px; border-radius: 2px; }
+  .mini .pn { border-radius: 0 0 3px 3px; padding: 6px 6px 7px; display: grid; gap: 4px; }
+  .mini .pn i { display: block; height: 3px; border-radius: 2px; }
+  .mini .btn { width: 30px; height: 9px; border-radius: 3px; margin-top: 2px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; padding: 7px 9px; font-size: 12.5px; }
+  .tag { font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; opacity: .7; }
+</style></head>
+<body>
+  <header><h1>23 themes for Torn</h1><p>18 dark &middot; 5 light &middot; all contrast-checked</p></header>
+  <div class="grid" id="grid"></div>
+<script src="../../src/themes.js"></script>
+<script>
+  var grid = document.getElementById('grid');
+  TORN_THEME_ORDER.forEach(function (id) {
+    var t = TORN_THEMES[id], v = t.vars;
+    var c = document.createElement('div');
+    c.className = 'card';
+    c.innerHTML =
+      '<div class="mini" style="background:' + v.bg + '">' +
+        '<div class="hd" style="background:' + v.header + '"><i style="background:' + v['header-text'] + '"></i><i style="background:' + v['header-text'] + '"></i><i style="background:' + v['header-text'] + '"></i></div>' +
+        '<div class="sd" style="background:' + v.sidebar + '"><i style="background:' + v.text + '"></i><i style="background:' + v.accent + '"></i><i style="background:' + v['text-dim'] + '"></i><i style="background:' + v['text-dim'] + '"></i></div>' +
+        '<div class="bd">' +
+          '<div class="tb" style="background:' + v.titlebar + '"><i style="background:' + v['titlebar-text'] + '"></i></div>' +
+          '<div class="pn" style="background:' + v.surface + ';box-shadow:inset 0 0 0 1px ' + v.border + '">' +
+            '<i style="width:85%;background:' + v.text + '"></i><i style="width:60%;background:' + v.link + '"></i><i style="width:72%;background:' + v['text-dim'] + '"></i>' +
+            '<div class="btn" style="background:' + v.accent + '"></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="foot" style="background:' + v.surface + ';color:' + v.heading + '"><span></span><span class="tag">' + t.scheme + '</span></div>';
+    c.querySelector('.foot span').textContent = t.name;
+    grid.appendChild(c);
+  });
+</script>
+</body></html>

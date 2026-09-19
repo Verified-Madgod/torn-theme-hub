@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="client-js" lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Wiki guard test</title>
+<!-- the extension, loaded in <head> like document_start: it applies a theme
+     BEFORE <body> exists, then must switch itself off once it sees a
+     MediaWiki body. -->
+<link rel="stylesheet" href="../src/torn-vars.css">
+<link rel="stylesheet" href="../src/torn-rules.css">
+<link rel="stylesheet" href="../src/theme-engine.css">
+<script>
+  window.__thmListeners = [];
+  window.browser = {
+    storage: {
+      local: { get: function () { return Promise.resolve({ tornThemeHub: { enabled: true, theme: 'synthwave' } }); } },
+      onChanged: { addListener: function (f) { window.__thmListeners.push(f); } }
+    },
+    runtime: { onMessage: { addListener: function () {} } }
+  };
+</script>
+<script src="../src/themes.js"></script>
+<script src="../src/content.js"></script>
+<style>
+  /* stand-in for the wiki's own look */
+  body { background: #fff; color: #333; font-family: sans-serif; }
+  a { color: #0645ad; }
+  h2 { color: #000; }
+</style>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 page-City skin-tornembed2 action-view">
+  <h2 id="fx-h">Information</h2>
+  <p>The city underwent a major overhaul with the release of RESPO. <a id="fx-a" href="#">here</a></p>
+</body>
+</html>

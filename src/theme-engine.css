@@ -1,0 +1,850 @@
+/* Theme Hub for Torn - engine.
+ *
+ * Maps the --thm-* tokens set by content.js onto torn.com's real selectors.
+ * Everything is scoped under html[data-thm] so the file is completely inert
+ * until a theme is switched on, and disabling the extension restores Torn's
+ * own stylesheet untouched.
+ *
+ * Specificity: every rule starts `html[data-thm]:not(#thm1):not(#thm2)`. The two
+ * :not(#id) never fail to match (no such ids exist) but each adds ID-level
+ * weight, so these rules out-rank Torn's class-based selectors even where Torn
+ * uses !important, without depending on stylesheet load order.
+ *
+ * Two kinds of selector appear below:
+ *   .stable-name          - Torn's hand-written classes, safe long term
+ *   [class*="name___"]    - CSS-module classes whose hash suffix changes on
+ *                           every Torn build; the prefix is stable, the hash
+ *                           is not, so we match on the prefix only.
+ */
+
+/* ============================ base ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="dark"]  { color-scheme: dark; }
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="light"] { color-scheme: light; }
+
+html[data-thm]:not(#thm1):not(#thm2) {
+  scrollbar-color: var(--thm-scroll-thumb) var(--thm-bg);
+  scrollbar-width: thin;
+}
+html[data-thm]:not(#thm1):not(#thm2) ::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-thm]:not(#thm1):not(#thm2) ::-webkit-scrollbar-track { background: var(--thm-bg); }
+html[data-thm]:not(#thm1):not(#thm2) ::-webkit-scrollbar-thumb {
+  background: var(--thm-scroll-thumb);
+  border-radius: 6px;
+  border: 2px solid var(--thm-bg);
+}
+
+html[data-thm]:not(#thm1):not(#thm2) body,
+html[data-thm]:not(#thm1):not(#thm2) .content,
+html[data-thm]:not(#thm1):not(#thm2) .content-wrapper,
+html[data-thm]:not(#thm1):not(#thm2) #mainContainer {
+  background-color: var(--thm-bg) !important;
+  color: var(--thm-text) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) ::selection {
+  background: var(--thm-accent);
+  color: var(--thm-accent-text);
+}
+
+/* Torn's decorative page backdrop. It is a full-bleed photo and it fights
+   every palette, so it is hidden by default and fade-able instead. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-backdrop="hidden"] .backdrops-container { display: none !important; }
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-backdrop="shown"]  .backdrops-container { opacity: .3 !important; }
+
+/* Only ever touch `filter` on images when the user has actually asked for
+   dimming - Torn uses filters of its own in places and we must not clobber
+   them with `filter: none` for everybody. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-dim="on"] img {
+  filter: var(--thm-img-filter, none);
+}
+
+/* ============================ header ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2) #topHeaderBanner,
+html[data-thm]:not(#thm1):not(#thm2) .header-wrapper-top,
+html[data-thm]:not(#thm1):not(#thm2) .header-wrapper-bottom {
+  background: var(--thm-header) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .header-wrapper-bottom {
+  border-top: 1px solid var(--thm-border) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .header .menu-item-link a,
+html[data-thm]:not(#thm1):not(#thm2) .header .link-text,
+html[data-thm]:not(#thm1):not(#thm2) .header-bottom-text,
+html[data-thm]:not(#thm1):not(#thm2) .header-bottom-text .headline-content {
+  color: var(--thm-header-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .header .menu-item-link a:hover .link-text {
+  color: var(--thm-link-hover) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .top_header_button svg path,
+html[data-thm]:not(#thm1):not(#thm2) .top_header_button svg polygon {
+  fill: var(--thm-header-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .top_header_button:hover svg path {
+  fill: var(--thm-link-hover) !important;
+}
+
+/* search box + its dropdown */
+html[data-thm]:not(#thm1):not(#thm2) [class*="searchWrapper___"],
+html[data-thm]:not(#thm1):not(#thm2) [class*="searchInput___"],
+html[data-thm]:not(#thm1):not(#thm2) [class*="searchTypeWrapper___"] .toggler {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) [class*="searchInput___"]::placeholder { color: var(--thm-text-dim) !important; }
+
+/* header dropdown panels: settings menu, activity log, advanced search */
+html[data-thm]:not(#thm1):not(#thm2) .settings-menu,
+html[data-thm]:not(#thm1):not(#thm2) .recent-history-content,
+html[data-thm]:not(#thm1):not(#thm2) .form-wrap.advanced-search,
+html[data-thm]:not(#thm1):not(#thm2) .tc-clock-tooltip,
+html[data-thm]:not(#thm1):not(#thm2) .dropdownList,
+html[data-thm]:not(#thm1):not(#thm2) .dropdown-content {
+  background: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+  border: 1px solid var(--thm-border) !important;
+  box-shadow: 0 6px 18px var(--thm-shadow) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .settings-menu .link-text,
+html[data-thm]:not(#thm1):not(#thm2) .settings-menu .setting-name,
+html[data-thm]:not(#thm1):not(#thm2) .settings-menu .info-text,
+html[data-thm]:not(#thm1):not(#thm2) .dropdown-content .item {
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .dropdown-content .item:hover,
+html[data-thm]:not(#thm1):not(#thm2) .dropdown-content .item.selected {
+  background: var(--thm-accent) !important;
+  color: var(--thm-accent-text) !important;
+}
+
+/* ============================ sidebar ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2) #sidebar,
+html[data-thm]:not(#thm1):not(#thm2) #sidebarroot > div {
+  background: var(--thm-sidebar) !important;
+  color: var(--thm-text) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="header___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="title___"] {
+  background: var(--thm-titlebar) !important;
+  color: var(--thm-titlebar-text) !important;
+  border-color: var(--thm-border) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="area-desktop___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="areaRow___"] {
+  background: transparent !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="linkName___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="menuName___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="name___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barName___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barValue___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="listAmount___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="date___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="server___"] {
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="menuValue___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="use___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="serverName___"] {
+  color: var(--thm-link) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="area-desktop___"]:hover {
+  background: var(--thm-surface-alt) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="active___"] [class*="linkName___"] {
+  color: var(--thm-accent) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="delimiter___"] {
+  border-color: var(--thm-border) !important;
+  background: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="defaultIcon___"] svg path,
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="defaultIcon___"] svg polygon {
+  fill: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="active___"] [class*="defaultIcon___"] svg path {
+  fill: var(--thm-accent) !important;
+}
+
+/* ---- user information block: status icons, money/level/points, bars ---- */
+
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="userInformation___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="points___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="point-block___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="statusIcons___"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="point-block___"] [class*="value___"]:not([class*="money-"]) {
+  color: var(--thm-heading) !important;
+}
+
+/* Money keeps its MEANING (green = money, red = owed/negative) but uses the
+   theme's computed --thm-positive / --thm-negative: same hue family, lightness
+   solved in themes.js for >= 4.5:1 against sidebar and panels. Torn's fixed
+   green was too dark on Nord / Slate. */
+html[data-thm]:not(#thm1):not(#thm2) [class*="money-positive"] {
+  color: var(--thm-positive) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) [class*="money-negative"] {
+  color: var(--thm-negative) !important;
+}
+
+/* Status bars (energy / nerve / happy / life / chain).
+   The TRACK is themed; the FILL keeps Torn's own colour, because green energy,
+   red nerve, yellow happy and blue life tell you which bar is which. */
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="bar___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="chainBar___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barStats___"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barName___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barValue___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barTimeLeft___"]:not([class*="barTimeLow___"]) {
+  color: var(--thm-text) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="barDescr___"] {
+  color: var(--thm-text-dim) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="progress___"],
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="progressLineWrap___"] {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--thm-border) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) #sidebar [class*="tickList___"] li {
+  border-color: color-mix(in srgb, var(--thm-bg) 60%, transparent) !important;
+}
+
+/* ============================ panels ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2) .content-title,
+html[data-thm]:not(#thm1):not(#thm2) .content-title h4,
+html[data-thm]:not(#thm1):not(#thm2) .content-title h5 {
+  color: var(--thm-heading) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .page-head-delimiter,
+html[data-thm]:not(#thm1):not(#thm2) .torn-divider,
+html[data-thm]:not(#thm1):not(#thm2) .delimiter-999,
+html[data-thm]:not(#thm1):not(#thm2) .delimiter-ccc,
+html[data-thm]:not(#thm1):not(#thm2) .post-delimiter,
+html[data-thm]:not(#thm1):not(#thm2) hr {
+  background: var(--thm-border) !important;
+  border-color: var(--thm-border) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .title-black,
+html[data-thm]:not(#thm1):not(#thm2) .title-black.top-round,
+html[data-thm]:not(#thm1):not(#thm2) .breadcrumbs,
+html[data-thm]:not(#thm1):not(#thm2) .breadcrumbs-dark,
+html[data-thm]:not(#thm1):not(#thm2) .title-green,
+html[data-thm]:not(#thm1):not(#thm2) .title-gray {
+  background: var(--thm-titlebar) !important;
+  color: var(--thm-titlebar-text) !important;
+  border-color: var(--thm-border) !important;
+  border-bottom: 1px solid var(--thm-border) !important;
+  background-image: none !important;
+}
+/* On light themes the title strip sits very close to the panel beneath it, so
+   give it a little extra definition. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="light"] .title-black,
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="light"] .breadcrumbs {
+  box-shadow: inset 0 -1px 0 var(--thm-border), 0 1px 2px var(--thm-shadow) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .title-black a,
+html[data-thm]:not(#thm1):not(#thm2) .breadcrumbs .name,
+html[data-thm]:not(#thm1):not(#thm2) .breadcrumbs .touch-name,
+html[data-thm]:not(#thm1):not(#thm2) .breadcrumbs .subscribe-name {
+  color: var(--thm-titlebar-text) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .cont-gray,
+html[data-thm]:not(#thm1):not(#thm2) .cont-gray10,
+html[data-thm]:not(#thm1):not(#thm2) .cont-black,
+html[data-thm]:not(#thm1):not(#thm2) .bottom-round,
+html[data-thm]:not(#thm1):not(#thm2) .info-msg-cont,
+html[data-thm]:not(#thm1):not(#thm2) .msg-cont {
+  background: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+  background-image: none !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .footer,
+html[data-thm]:not(#thm1):not(#thm2) .footer a {
+  background: transparent !important;
+  color: var(--thm-text-dim) !important;
+}
+
+/* ============================ forums ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2) .thread-list > li,
+html[data-thm]:not(#thm1):not(#thm2) .forums-thread,
+html[data-thm]:not(#thm1):not(#thm2) .forums-thread-wrap,
+html[data-thm]:not(#thm1):not(#thm2) .forums-new-post-wrap,
+html[data-thm]:not(#thm1):not(#thm2) .forums-create-new {
+  background: var(--thm-surface) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list > li .column-wrap {
+  background: var(--thm-surface) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list > li .column-wrap.new-post {
+  background: var(--thm-surface-alt) !important;
+  border-left: 3px solid var(--thm-accent) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .poster-wrap,
+html[data-thm]:not(#thm1):not(#thm2) .poster.white-grad,
+html[data-thm]:not(#thm1):not(#thm2) .info-wrap {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .info-wrap .info li,
+html[data-thm]:not(#thm1):not(#thm2) .info-wrap .bold,
+html[data-thm]:not(#thm1):not(#thm2) .poster-name,
+html[data-thm]:not(#thm1):not(#thm2) .poster-id {
+  color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .poster-name { color: var(--thm-text) !important; }
+
+html[data-thm]:not(#thm1):not(#thm2) .post-container,
+html[data-thm]:not(#thm1):not(#thm2) .post.unreset,
+html[data-thm]:not(#thm1):not(#thm2) .post-wrap {
+  background: transparent !important;
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .time-wrap,
+html[data-thm]:not(#thm1):not(#thm2) .posted,
+html[data-thm]:not(#thm1):not(#thm2) .edited,
+html[data-thm]:not(#thm1):not(#thm2) .edited .date {
+  color: var(--thm-text-dim) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) .post-quote,
+html[data-thm]:not(#thm1):not(#thm2) .quote-post,
+html[data-thm]:not(#thm1):not(#thm2) blockquote {
+  background: var(--thm-surface-alt) !important;
+  border-left: 3px solid var(--thm-accent) !important;
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .author-quote strong a { color: var(--thm-link) !important; }
+
+html[data-thm]:not(#thm1):not(#thm2) .profile-sign {
+  color: var(--thm-text-dim) !important;
+  opacity: .85;
+}
+
+/* ---- post action bar: quote / report / edit / like / dislike ----
+   The bar and its <li> cells are painted by forums_thread.css (gradients).
+   The icons are SVG sprites on the <button>s and are left alone. */
+html[data-thm]:not(#thm1):not(#thm2) .confirm-wrap,
+html[data-thm]:not(#thm1):not(#thm2) .confirm-box {
+  background: transparent !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  border: 1px solid var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap > li,
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap .right-part,
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap .right-part ul,
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap .right-part li {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap > li.forum-button:not(.disabled):hover,
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap .right-part li.forum-button:not(.disabled):hover {
+  background: color-mix(in srgb, var(--thm-accent) 18%, transparent) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .thread-list .action-wrap .value {
+  color: var(--thm-text-dim) !important;
+  text-shadow: none !important;
+}
+/* the sprite icons are mid-grey; lift them a little on dark themes */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="dark"] .thread-list .thread-action-icon,
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="dark"] .thread-list .like-icon,
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-scheme="dark"] .thread-list .dislike-icon {
+  filter: brightness(1.35) !important;
+}
+
+/* ---- forum index rows ("My Faction", "General Discussion" ...) ----
+   Painted by forums.css. A row is any <ul> whose li.name holds a.forum-link. */
+html[data-thm]:not(#thm1):not(#thm2) ul:has(> li.name > a.forum-link) {
+  color: var(--thm-text-dim) !important;
+  background: var(--thm-surface) !important;
+  background-image: none !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) ul:has(> li.name > a.forum-link):hover {
+  background: var(--thm-surface-alt) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) ul:has(> li.name > a.forum-link) > li {
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--thm-text-dim) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) li.name > a.forum-link,
+html[data-thm]:not(#thm1):not(#thm2) li.name > a.forum-link .desc {
+  color: var(--thm-heading) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) li.name > a.forum-link:hover .desc {
+  color: var(--thm-link-hover) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) li.name > a.forum-link .icon-wrap {
+  background: transparent !important;
+}
+
+/* ---- forum notifications: unread (li.new) only; read ones already fit ----
+   Identified by its .icons-wrap child so other ".new" lists are unaffected. */
+html[data-thm]:not(#thm1):not(#thm2) li.new:has(> .icons-wrap) {
+  color: var(--thm-text) !important;
+  background: color-mix(in srgb, var(--thm-accent) 14%, var(--thm-surface)) !important;
+  background-image: none !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: inset 3px 0 0 var(--thm-accent) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) li.new:has(> .icons-wrap) :is(.icons-wrap, .post-wrap) {
+  background: transparent !important;
+  background-image: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) li.new:has(> .icons-wrap) .qty {
+  color: var(--thm-text) !important;
+}
+
+/* ---- pagination ----
+   Torn builds the pills out of image sprites (.left-end / .right-end /
+   pagination_bg_ends.png) that stay light grey on any theme, so the sprites
+   are dropped and each page number becomes a plain token-coloured pill. */
+html[data-thm]:not(#thm1):not(#thm2) .gallery-wrapper.pagination {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-l,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-r,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .left-end,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .right-end {
+  background: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(.d, body) .pagination > a.page-number {
+  color: var(--thm-link) !important;
+  background: var(--thm-surface-alt) !important;
+  border: 1px solid var(--thm-border) !important;
+  border-radius: 4px !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(.d, body) .pagination > a.page-number.page-visited {
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(.d, body) .pagination > a.page-number:hover {
+  background: color-mix(in srgb, var(--thm-accent) 22%, var(--thm-surface-alt)) !important;
+  color: var(--thm-heading) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(.d, body) .pagination > a.page-number.active,
+html[data-thm]:not(#thm1):not(#thm2) :is(.d, body) .pagination > a.page-number.active:hover {
+  background: var(--thm-accent) !important;
+  border-color: var(--thm-accent) !important;
+  color: var(--thm-accent-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .pagination .page-nb {
+  color: inherit !important;
+  background: transparent !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .pagination .points {
+  color: var(--thm-text-dim) !important;
+}
+/* the < > arrows are drawn with skewed borders */
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-left::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-left::after,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-right::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination .pagination-right::after {
+  border-color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .pagination a:not(.disable):hover > .pagination-left::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a:not(.disable):hover > .pagination-left::after,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a:not(.disable):hover > .pagination-right::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a:not(.disable):hover > .pagination-right::after {
+  border-color: var(--thm-link) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .pagination a.disable .pagination-left::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a.disable .pagination-left::after,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a.disable .pagination-right::before,
+html[data-thm]:not(#thm1):not(#thm2) .pagination a.disable .pagination-right::after {
+  border-color: var(--thm-border) !important;
+}
+
+/* ---- tab strips (.torn-tabs: armoury, faction, items ...) ----
+   Backgrounds come from Torn's tab variables (generated). Labels are
+   navigation, not inline links, so they use text colours rather than the
+   global link colour - a link hue on a mid-tone tab gradient fails contrast. */
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li,
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li > a {
+  color: var(--thm-text) !important;
+  text-shadow: none !important;
+}
+/* the tab <li> carries the (generated) background; its anchor must not paint over it */
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li > a {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li:hover > a {
+  color: var(--thm-heading) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li.ui-tabs-active,
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li.ui-tabs-active > a {
+  color: var(--thm-heading) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .torn-tabs > li.ui-tabs-active {
+  box-shadow: inset 0 -2px 0 var(--thm-accent) !important;
+}
+
+/* ============================ links & text ============================ */
+
+/* Semantic colour classes (.t-red / .t-green / .t-orange, money) are excluded
+   rather than "reverted": `color: revert` in an author sheet discards Torn's
+   own colour too and falls back to the browser default. */
+html[data-thm]:not(#thm1):not(#thm2) a:not(.t-red, .t-green, .t-orange, [class*="money-"]),
+html[data-thm]:not(#thm1):not(#thm2) .t-blue,
+html[data-thm]:not(#thm1):not(#thm2) a.t-blue {
+  color: var(--thm-link) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) a:not(.t-red, .t-green, .t-orange, [class*="money-"]):hover,
+html[data-thm]:not(#thm1):not(#thm2) .t-blue:hover {
+  color: var(--thm-link-hover) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .t-gray-1,
+html[data-thm]:not(#thm1):not(#thm2) .t-gray-2,
+html[data-thm]:not(#thm1):not(#thm2) .t-gray-3,
+html[data-thm]:not(#thm1):not(#thm2) .t-gray-6,
+html[data-thm]:not(#thm1):not(#thm2) .t-gray-9 {
+  color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) h1, html[data-thm]:not(#thm1):not(#thm2) h2, html[data-thm]:not(#thm1):not(#thm2) h3,
+html[data-thm]:not(#thm1):not(#thm2) h4, html[data-thm]:not(#thm1):not(#thm2) h5, html[data-thm]:not(#thm1):not(#thm2) h6 {
+  color: var(--thm-heading) !important;
+}
+
+
+/* ============================ controls ============================ */
+
+html[data-thm]:not(#thm1):not(#thm2) .torn-btn,
+html[data-thm]:not(#thm1):not(#thm2) .btn-dark-bg,
+html[data-thm]:not(#thm1):not(#thm2) button.torn-btn {
+  background: var(--thm-accent) !important;
+  background-image: none !important;
+  color: var(--thm-accent-text) !important;
+  border: 1px solid var(--thm-border) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .torn-btn:hover { filter: brightness(1.15); }
+html[data-thm]:not(#thm1):not(#thm2) .btn.reset,
+html[data-thm]:not(#thm1):not(#thm2) [class*="resetBtn___"] {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border: 1px solid var(--thm-border) !important;
+}
+
+html[data-thm]:not(#thm1):not(#thm2) input[type="text"],
+html[data-thm]:not(#thm1):not(#thm2) input[type="number"],
+html[data-thm]:not(#thm1):not(#thm2) input[type="search"],
+html[data-thm]:not(#thm1):not(#thm2) input[type="password"],
+html[data-thm]:not(#thm1):not(#thm2) textarea,
+html[data-thm]:not(#thm1):not(#thm2) select,
+html[data-thm]:not(#thm1):not(#thm2) .input-wrapper,
+html[data-thm]:not(#thm1):not(#thm2) .input-wrap input,
+html[data-thm]:not(#thm1):not(#thm2) .input-wrap textarea {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border: 1px solid var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) input::placeholder,
+html[data-thm]:not(#thm1):not(#thm2) textarea::placeholder { color: var(--thm-text-dim) !important; }
+html[data-thm]:not(#thm1):not(#thm2) input:focus,
+html[data-thm]:not(#thm1):not(#thm2) textarea:focus {
+  outline: none !important;
+  border-color: var(--thm-accent) !important;
+}
+
+/* the BBCode / post editor */
+html[data-thm]:not(#thm1):not(#thm2) [class*="editorRoot___"],
+html[data-thm]:not(#thm1):not(#thm2) [class*="editorContent___"],
+html[data-thm]:not(#thm1):not(#thm2) [class*="toolbarWrapper___"],
+html[data-thm]:not(#thm1):not(#thm2) [class*="sourceArea___"],
+html[data-thm]:not(#thm1):not(#thm2) .editor-content,
+html[data-thm]:not(#thm1):not(#thm2) .post-editor-wrap {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) [class*="toolbarButton___"] svg path { fill: var(--thm-text-dim) !important; }
+html[data-thm]:not(#thm1):not(#thm2) [class*="toolbarButton___"]:hover svg path { fill: var(--thm-accent) !important; }
+
+/* ============================ item lists: faction armoury ============================
+   Rows come from factions CSS (not generated). A row is identified by
+   structure - any <li> holding an .item-action bar - because only usable
+   items carry the .item-use-act class. `:has()` needs Firefox 121+ / Chrome
+   105+; the plain .item-use-act selector is the fallback. */
+
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) {
+  background: var(--thm-surface) !important;
+  background-image: none !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)):hover {
+  background: var(--thm-surface-alt) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) :is(.img-wrap, .options-wrap, .options, .name, .type, .loaned) {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .name {
+  color: var(--thm-heading) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) :is(.type, .loaned) {
+  color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .loaned .bold {
+  color: var(--thm-text) !important;
+}
+
+/* Use / Give / Loan / Retrieve. `.active` marks an action you can take;
+   the rest are greyed out. */
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .item-action {
+  background: transparent !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .item-action > :is(a, div):not(.clear) {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  color: var(--thm-text-dim) !important;
+  border-color: var(--thm-border) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .item-action > .active {
+  color: var(--thm-link) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .item-action > .active:hover {
+  background: color-mix(in srgb, var(--thm-accent) 20%, var(--thm-surface-alt)) !important;
+  color: var(--thm-heading) !important;
+}
+
+/* the drop-down under a row: use confirmation / result, give, loan forms */
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) :is(.action-cont, .action-cont .msg, .action-cont form) {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .action-cont .bold,
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) .action-cont b {
+  color: var(--thm-heading) !important;
+}
+
+/* the expandable item-info panel */
+html[data-thm]:not(#thm1):not(#thm2) :is(li.item-use-act, li:has(> .item-action)) :is(.view-item-info, .item-cont, .item-wrap) {
+  background: var(--thm-surface-alt) !important;
+  background-image: none !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+
+/* ============================ chat ============================ */
+
+/* Chat is React with CSS-module classes. Nearly every element is `root___xxx`,
+   including <svg> icons and text <span>s, so the panel surface is applied to
+   real containers only - painting an <svg> put a dark disc behind the send
+   icon. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot :is(div, section, form, button)[class*="root___"] {
+  background-color: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot svg {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Chat text contrast. Torn's chat CSS hardcodes its own text and bubble
+   colours (no variables to remap). Once a light theme repaints the chat
+   panels, that light-on-dark text becomes unreadable. So inside chat:
+     - every element draws text in the theme's text colour, and
+     - every inner layer is see-through, so text always sits on the themed
+       panel colour painted by the container rule above.
+   :where() adds no specificity, so the specific rules (header, badge, links,
+   input, containers) always win over these broad ones. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot :where(:not(svg, svg *, img)) {
+  color: var(--thm-text) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot :where(:not(svg, svg *, img, textarea, input)) {
+  background-color: transparent !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot a {
+  color: var(--thm-link) !important;
+}
+/* Message box: in Torn's layout the CONTAINER (div.root___ holding the
+   textarea + send button) is the visible box, and the textarea sits
+   see-through inside it. So the container gets the input colour and the
+   textarea stays transparent - painting the textarea instead left a lighter
+   inner box with darker strips on both sides. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot :is(div, form)[class*="root___"]:has(> textarea) {
+  background-color: var(--thm-surface-alt) !important;
+  border-color: var(--thm-border) !important;
+  padding-left: 0 !important;   /* Torn's 10px left inset */
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot textarea {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot input {
+  background-color: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot :is(textarea, input)::placeholder {
+  color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot [class*="name___"],
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot [class*="overflow___"] {
+  color: var(--thm-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot [class*="messageCount___"] > span {
+  background: var(--thm-accent) !important;
+  color: var(--thm-accent-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot svg g[fill^="url("] { fill: var(--thm-text-dim) !important; }
+
+/* chat window header bar (channel name, collapse arrow, minimise). The title
+   span carries an inline `style="color: white"`, which only !important beats. */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="header___"] {
+  background: var(--thm-titlebar) !important;
+  background-image: none !important;
+  color: var(--thm-titlebar-text) !important;
+  border-color: var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="header___"] [class*="actionButton___"] {
+  background: transparent !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="header___"] [class*="title___"] {
+  color: var(--thm-titlebar-text) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="header___"] svg g[fill^="url("] {
+  fill: var(--thm-titlebar-text) !important;
+}
+
+/* send button: just the icon, no disc behind it */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="iconWrapper___"] {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="iconWrapper___"] svg g[fill^="url("] {
+  fill: var(--thm-accent) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] #chatRoot button[class*="iconWrapper___"]:disabled svg g[fill^="url("] {
+  fill: var(--thm-text-dim) !important;
+}
+
+/* TornTools' chat search box (TornTools is otherwise left alone) */
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] .tt-chat-filter {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text-dim) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] .tt-chat-filter label {
+  color: var(--thm-text-dim) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] .tt-chat-filter input {
+  background: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+  border: 1px solid var(--thm-border) !important;
+  box-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2)[data-thm-chat="on"] .tt-chat-filter input:focus {
+  border-color: var(--thm-accent) !important;
+  outline: none !important;
+}
+
+/* ============================ misc ============================ */
+
+/* colorbox lightbox used by forums */
+html[data-thm]:not(#thm1):not(#thm2) #cboxContent,
+html[data-thm]:not(#thm1):not(#thm2) #cboxLoadedContent {
+  background: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+}
+
+/* mini profile popup */
+html[data-thm]:not(#thm1):not(#thm2) #react-profile-mini-root [class*="root___"] {
+  background: var(--thm-surface) !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+
+/* back-to-top button */
+html[data-thm]:not(#thm1):not(#thm2) [class*="goToTopBtn___"] {
+  background-color: var(--thm-accent) !important;
+}
+
+/* TornTools panels are left with their own palette on purpose - it has its
+   own theming system on --tt-*. Only its pieces that sit inside Torn's own
+   sidebar are nudged into line, because TornTools colours them for Torn's
+   default look and they vanish on dark themes. */
+html[data-thm]:not(#thm1):not(#thm2) #sidebarNotes textarea.notes {
+  background: var(--thm-surface-alt) !important;
+  color: var(--thm-text) !important;
+  border: 1px solid var(--thm-border) !important;
+}
+/* sidebar rows TornTools adds, e.g. "TornTools updated: 9.3.0" */
+html[data-thm]:not(#thm1):not(#thm2) .tt-sidebar-area,
+html[data-thm]:not(#thm1):not(#thm2) .tt-sidebar-area > div {
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--thm-text) !important;
+  border-color: var(--thm-border) !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .tt-sidebar-area a,
+html[data-thm]:not(#thm1):not(#thm2) .tt-sidebar-area a span {
+  color: var(--thm-link) !important;
+  text-shadow: none !important;
+}
+html[data-thm]:not(#thm1):not(#thm2) .tt-sidebar-area a:hover span {
+  color: var(--thm-link-hover) !important;
+}
